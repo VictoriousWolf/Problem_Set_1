@@ -1,5 +1,6 @@
-\\ Created by Nicholas Lovell 
-\\ Edited last 27/9/2016
+\\ Problem_set_1.c
+\\ 
+\\ 27/09/2016 Nicholas Lovell
 \\
 \\ NUMERICAL ERRORS IN PRACTISE
 \\
@@ -21,6 +22,7 @@
 
 double f(double x);
 double g(double x);
+f_forward
 
 int main()
 {
@@ -32,7 +34,8 @@ int main()
 
 	for(double i=ERR_START;i<ERR_END;i+=ERR_INC)
 	{
-		
+		printf("Forward error in f(x) = %lf",f_forward_err(i));
+		printf("Forward error in g(x) = %lf",g_forward_err(i));
 	}
 }
 
@@ -45,14 +48,14 @@ double g(double x)
 	return 2*(pow((sin(0.5*x)/x),2));
 }
 
-double f_forward_err(double)
+double f_forward_err(double x)
 {
-	
+	return 0.4999999999999999-(f(x));
 }
 
-double g_forward_err(double)
+double g_forward_err(double x)
 {
-
+	return 0.4999999999999999-(g(x));
 }
 
 double f_backward_err(double)
