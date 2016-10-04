@@ -1,12 +1,12 @@
-\\ Problem_set_1.c
-\\ 
-\\ 27/09/2016 Nicholas Lovell
-\\
-\\ NUMERICAL ERRORS IN PRACTISE
-\\
-\\ This program looks at 2 functions and sees how there solutions differ from
-\\ the mathermatical soultions. Backward and forward analysis is also performed
-\\ on each function to illusatrte this. 
+// Problem_set_1.c
+// 
+// 27/09/2016 Nicholas Lovell
+//
+// NUMERICAL ERRORS IN PRACTISE
+//
+// This program looks at 2 functions and sees how there solutions differ from
+// the mathermatical soultions. Backward and forward analysis is also performed
+// on each function to illusatrte this. 
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,20 +22,21 @@
 
 double f(double x);
 double g(double x);
-f_forward
+long double f_forward_err(long double x);
+long double g_forward_err(long double x);
 
 int main()
 {
 	for(double i=START ; i<END ; i+=INCREMENT)
 	{
-		printf("i:%lf\tf=%.17lf\tg=%.17lf\t",i,f(i),g(i));
+		printf("x : %lf\tf=%.17lf\tg=%.17lf\t",i,f(i),g(i));
 		(f(i)==g(i)) ? printf("\n") : printf("Don't match\n");	
 	}
 
-	for(double i=ERR_START;i<ERR_END;i+=ERR_INC)
+	for(long double i=ERR_START;i<ERR_END;i+=ERR_INC)
 	{
-		printf("Forward error in f(x) = %lf",f_forward_err(i));
-		printf("Forward error in g(x) = %lf",g_forward_err(i));
+		printf("Forward error in f(x) = %.17Lf\n",f_forward_err(i));
+		printf("Forward error in g(x) = %.17Lf\n",g_forward_err(i));
 	}
 }
 
@@ -48,22 +49,22 @@ double g(double x)
 	return 2*(pow((sin(0.5*x)/x),2));
 }
 
-double f_forward_err(double x)
+long double f_forward_err(long double x)
 {
-	return 0.4999999999999999-(f(x));
+	return (1-cosl(x))/powl(x,2) - (f(x));
 }
 
-double g_forward_err(double x)
+long double g_forward_err(long  double x)
 {
-	return 0.4999999999999999-(g(x));
+	return 2*(powl((sinl(0.5*x)/x),2)) - (g(x));
 }
 
-double f_backward_err(double)
+/*double f_backward_err(double)
 {
-
+	//
 }
 
 double g_backward_err(double)
 {
-
-}
+	//
+}*/
